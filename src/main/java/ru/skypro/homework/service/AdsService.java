@@ -1,4 +1,9 @@
 package ru.skypro.homework.service;
 
-public class AdsService {
+import ru.skypro.homework.dto.AdsDto;
+
+public interface   AdsService {
+    public static AdsDto getAds(){
+        return null;
 }
+    }
