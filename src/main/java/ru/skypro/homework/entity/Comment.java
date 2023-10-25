@@ -20,28 +20,11 @@ public class Comment {
     /**
      * id  комментария
      */
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="comment_id")
     private Integer pk;
 
-    /**
-     * Id автора комментария
-     */
-
-    @Column(name = "author_id")
-    private Integer author;
-    /**
-     * ссылка на  автор автора(пользователя) комментария
-     */
-    @Column(name = "comments_image")
-    private String authorImage;
-    /**
-     * имя автора комментария
-     */
-    @Column(name="first_name_author")
-    private String authorFirstName;
     /**
      * Дата и время комментария
      */
@@ -54,6 +37,8 @@ public class Comment {
     @Column(name = "text")
     private String test;
 
+    @ManyToOne
+    private Ad ads;
 
 
 }

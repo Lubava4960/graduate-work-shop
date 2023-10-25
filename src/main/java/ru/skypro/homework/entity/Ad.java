@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Сущность объявления.
@@ -48,15 +49,14 @@ public class Ad {
      */
     @Column(name="image_path")
     private String imagePath;
-    /**
-     * Автор объявления
-     */
-    @Column(name="author_id")
-    private String userAuthor;
+
 
     @ManyToOne
     private User user;
 
+     @OneToMany(mappedBy = "ads", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "ad" ,cascade = CascadeType.ALL, orphanRemoval = true)
 
+     private Collection<Comment> comment;
 
 }

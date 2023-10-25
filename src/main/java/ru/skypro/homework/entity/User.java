@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import ru.skypro.homework.dto.Role;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -57,7 +57,7 @@ public class User {
      * права доступа пользователя
      */
     @Column(name="user_role", nullable = false)
-    //@Enumerated(EnumType.STRING)
+    @Enumerated( EnumType.STRING)
     private Role role;
     /**
      * aватар(фото) пользователя
@@ -68,8 +68,6 @@ public class User {
     /**
      * Объявления пользователя
      */
-
-
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
