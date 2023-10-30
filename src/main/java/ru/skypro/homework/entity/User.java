@@ -25,18 +25,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private Integer id;
+    private int id;
 
     /**
      * Логин пользователя
      */
-    @Column(name = "user_name")
-    private String userName;
-    /**
-     * mail пользователя
-     */
-    @Column(name="email",  nullable = false, unique = true)
-    private String email;
+    @Column(name = "username")
+    private String username;
+
     /**
      * имя пользователя
      */
@@ -56,21 +52,20 @@ public class User {
     /**
      * права доступа пользователя
      */
-    @Column(name="user_role", nullable = false)
+    @Column(name="role", nullable = false)
     @Enumerated( EnumType.STRING)
     private Role role;
     /**
      * aватар(фото) пользователя
      */
 
-    @Column(name="user_image")
-    private String image;
-    /**
-     * Объявления пользователя
-     */
+    @Column(name="image")
+    private byte[] image;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
-    private Collection<Ad> ads;
+
+
+
+
 
 }

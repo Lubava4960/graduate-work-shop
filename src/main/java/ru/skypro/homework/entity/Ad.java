@@ -26,13 +26,13 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
 
-    private Integer id;
+    private int id;
 
     /**
      * Цена объявления
      */
     @Column(name="price")
-    private Integer price;
+    private int price;
     /**
      * Заголовок объявления
      */
@@ -48,15 +48,13 @@ public class Ad {
      * Картинка объявления
      */
     @Column(name="image_path")
-    private String imagePath;
+    private byte[] image;
 
 
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
 
-     @OneToMany(mappedBy = "ads", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "ad" ,cascade = CascadeType.ALL, orphanRemoval = true)
 
-     private Collection<Comment> comment;
 
 }

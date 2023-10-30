@@ -22,23 +22,26 @@ public class Comment {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="comment_id")
-    private Integer pk;
+    @Column(name="id")
+    private int id;
 
     /**
      * Дата и время комментария
      */
-    @Column(name="create_ad")
-    private Long createdAt;
+    @Column(name="created_at")
+    private long createdAt;
 
     /**
      * Текст комментария
      */
     @Column(name = "text")
-    private String test;
+    private String text;
 
     @ManyToOne
-    private Ad ads;
-
+    @JoinColumn(name="ad_id")
+    private Ad ad;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
 }

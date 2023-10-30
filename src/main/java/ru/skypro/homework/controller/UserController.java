@@ -1,23 +1,27 @@
 package ru.skypro.homework.controller;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.NewPassword;
-import ru.skypro.homework.dto.UserDto;
+import ru.skypro.homework.dto.User;
 import io.swagger.v3.oas.annotations.Operation;
 
 /**
  * Контроллер для работы с пользователями
  *
  */
-
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/users")
 
 
 @CrossOrigin(value = "http://localhost:3000")
 public class UserController{
+
 
     @Operation (
             summary = "Обновление пароля",
@@ -33,9 +37,9 @@ public class UserController{
             tags="Пользователи"
     )
     @GetMapping("/me")
-    public UserDto getUser(@RequestBody UserDto user){
+    public User getUser(){
+        return new User();
 
-        return new UserDto();
     }
     @Operation(
             summary = "Обновление информации об авторизованном пользователе",
@@ -43,10 +47,10 @@ public class UserController{
     )
 
     @PatchMapping("/me")
-    public UserDto updateUser(@RequestBody UserDto user) {
+    public User updateUser(@RequestBody User user) {
 
         System.out.println("hello");
-        return new UserDto();
+        return new User();
 
     }
     @Operation(

@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
  * DTO нового пароля.
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class NewPassword {
 
     private String currentPassword; // текущий пароль
