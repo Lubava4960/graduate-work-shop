@@ -1,9 +1,6 @@
 package ru.skypro.homework.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.skypro.homework.dto.Role;
 
 import javax.persistence.*;
@@ -12,6 +9,7 @@ import java.util.Collection;
 /**
  * Сущность пользователя
  */
+@Builder
 @Entity
 @Data
 @EqualsAndHashCode
@@ -32,6 +30,8 @@ public class User {
      */
     @Column(name = "username")
     private String username;
+
+    private String password;
 
     /**
      * имя пользователя

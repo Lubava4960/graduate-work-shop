@@ -11,6 +11,8 @@ import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.service.impl.AdsServiceImpl;
 
+import java.util.ArrayList;
+
 
 /**
  * Контроллер для работы с объявлениями
@@ -33,8 +35,10 @@ private final AdsServiceImpl adsService;
     )
     @GetMapping
     public Ads getAds(){
-
-        return new Ads();
+        Ads ads = new Ads();
+        ads.setResults(new ArrayList<>());
+        ads.setCount(0);
+        return  ads;
     }
     @Operation(
             summary = "добавление объявлений",
@@ -79,8 +83,10 @@ private final AdsServiceImpl adsService;
     @GetMapping("/me")
 
     public Ads getLoginUserAds(){
-
-        return new Ads();
+    Ads ads = new Ads();
+    ads.setResults(new ArrayList<>());
+    ads.setCount(0);
+        return  ads;
     }
     @Operation(
             summary= "Обновление картинки объявления (по id)",
