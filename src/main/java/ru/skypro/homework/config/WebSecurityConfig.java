@@ -32,7 +32,8 @@ public class WebSecurityConfig {
             "/login",
             "/register",
             "/ads",
-            "/users/*/image"
+            "/users/*/image",
+            "/ads/*/image"
     };
 
 
