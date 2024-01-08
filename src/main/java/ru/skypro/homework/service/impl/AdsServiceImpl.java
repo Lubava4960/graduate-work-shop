@@ -1,6 +1,7 @@
 package ru.skypro.homework.service.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

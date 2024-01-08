@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO регистрации
+ */
 @Data
-
-
 
 public class Register {
 
@@ -16,7 +17,5 @@ public class Register {
     private String lastName;
     private String phone;
     private Role role;
-
-
 
 }

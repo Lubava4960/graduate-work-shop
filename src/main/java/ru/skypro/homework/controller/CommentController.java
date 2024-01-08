@@ -4,12 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.skypro.homework.dto.Comment;
 import ru.skypro.homework.dto.CreateOrUpdateComment;
 import ru.skypro.homework.dto.Comments;
 import ru.skypro.homework.service.impl.CommentServiceImpl;
@@ -29,7 +26,6 @@ import ru.skypro.homework.service.impl.CommentServiceImpl;
 public class CommentController {
 
     private  final CommentServiceImpl commentService;
-
 
 
     @GetMapping("/{id}/comments")

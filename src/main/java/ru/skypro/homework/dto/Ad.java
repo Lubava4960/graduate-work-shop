@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Data
 
 public class Ad {
@@ -12,5 +14,7 @@ public class Ad {
     private int pk; // id объявления
     private int price; // цена объявления
     private String title; // заголовок объявления
+
+
 }
 

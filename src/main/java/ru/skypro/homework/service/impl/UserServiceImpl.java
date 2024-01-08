@@ -1,6 +1,7 @@
 package ru.skypro.homework.service.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ import ru.skypro.homework.mappers.UserMapper;
 import ru.skypro.homework.repository.UserRepository;
 
 import java.io.IOException;
-
 @AllArgsConstructor
+
 @Service
 public class UserServiceImpl {
     private final UserRepository userRepository;

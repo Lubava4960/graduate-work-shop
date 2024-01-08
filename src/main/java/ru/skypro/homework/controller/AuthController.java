@@ -1,7 +1,6 @@
 package ru.skypro.homework.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,11 +20,14 @@ import ru.skypro.homework.service.AuthService;
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class AuthController {
 
     private final   AuthService authService;
 
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
 
     @Operation(

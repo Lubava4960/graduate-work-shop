@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class CreateOrUpdateComment {
+    /**
+     * обновление комментария
+     */
 
     private String text; // текст комментария
 }

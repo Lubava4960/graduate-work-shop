@@ -8,14 +8,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.Ad;
 import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.dto.CreateOrUpdateAd;
 import ru.skypro.homework.dto.ExtendedAd;
 import ru.skypro.homework.service.impl.AdsServiceImpl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 /**
@@ -24,13 +22,16 @@ import java.util.ArrayList;
  */
 @Slf4j
 @RestController
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @CrossOrigin(value = "http://localhost:3000")
 @RequestMapping("/ads")
 
 public class AdsController {
 private final AdsServiceImpl adsService;
 
+    public AdsController(AdsServiceImpl adsService) {
+        this.adsService = adsService;
+    }
 
 
     @Operation(
@@ -39,7 +40,8 @@ private final AdsServiceImpl adsService;
     )
     @GetMapping
     public Ads getAds(){
-       return adsService.getAllAds();
+
+        return adsService.getAllAds();
     }
     @Operation(
             summary = "добавление объявлений",
@@ -97,6 +99,11 @@ private final AdsServiceImpl adsService;
     public void updateAdPicture(@PathVariable("id") int id, @RequestParam("image") MultipartFile image) throws IOException {
        adsService.updateImage(id, image);
     }
+    @Operation(
+            summary= "Получение картинки объявления (по id)",
+            tags= "объявления"
+    )
+
 
     @GetMapping("/{id}/image")
     public byte[] getImage(@PathVariable int id) {

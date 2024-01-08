@@ -3,6 +3,7 @@ package ru.skypro.homework.entity;
 import lombok.*;
 import ru.skypro.homework.dto.Role;
 
+import javax.annotation.Resource;
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -61,11 +62,6 @@ public class User {
 
     @Column(name="image")
     private byte[] image;
-
-
-
-
-
 
 
 }

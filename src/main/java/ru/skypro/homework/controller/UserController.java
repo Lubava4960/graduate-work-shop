@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 @Slf4j
 @RestController
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping("/users")
 
 
@@ -27,6 +27,10 @@ import java.io.IOException;
 public class UserController {
 
     private final UserServiceImpl userService;
+
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     @Operation(
             summary = "Обновление пароля",
