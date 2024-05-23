@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
  * DTO создания комментария.
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class CreateOrUpdateComment {
+    /**
+     * обновление комментария
+     */
 
     private String text; // текст комментария
 }
