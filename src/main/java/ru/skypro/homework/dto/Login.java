@@ -5,20 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 
 
 public class Login {
     private String password;
-    private String userName;
+    private String username;
 
 
-    public String getUsername() {
-        return userName;
-    }
 
-    public String getPassword() {
-        return password;
-    }
 }

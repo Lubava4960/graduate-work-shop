@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.management.relation.Role;
-
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserDto {
-    private Integer id; // id пользователя
+
+public class User {
+    private int id; // id пользователя
     private String email; // логин пользователя
     private String firstName; // имя пользователя
     private String lastName; // фамилия пользователя

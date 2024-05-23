@@ -4,12 +4,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.AdsDto;
-import ru.skypro.homework.dto.CreateAdsDto;
-import ru.skypro.homework.service.AdsService;
-import ru.skypro.homework.service.PictureService;
+import ru.skypro.homework.dto.Ad;
+import ru.skypro.homework.dto.Ads;
+import ru.skypro.homework.dto.CreateOrUpdateAd;
+import ru.skypro.homework.dto.ExtendedAd;
+import ru.skypro.homework.service.impl.AdsServiceImpl;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -23,9 +29,8 @@ import ru.skypro.homework.service.PictureService;
 @RequestMapping("/ads")
 
 public class AdsController {
+private final AdsServiceImpl adsService;
 
-    public AdsController(AdsService adsService, PictureService pictureService) {
-    }
 
 
     @Operation(
@@ -33,9 +38,8 @@ public class AdsController {
             tags= "объявления"
     )
     @GetMapping
-    public AdsDto getAds(@RequestBody AdsDto ads){
-
-        return new AdsDto();
+    public Ads getAds(){
+       return adsService.getAllAds();
     }
     @Operation(
             summary = "добавление объявлений",
@@ -43,8 +47,8 @@ public class AdsController {
     )
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 
-    public AdsDto addAds(@RequestPart("properties") CreateAdsDto ads, @RequestPart("image") MultipartFile image) {
-        return new AdsDto();
+    public void addAds(@RequestPart("properties") CreateOrUpdateAd ads, @RequestPart("image") MultipartFile image, Authentication authentication) throws IOException {
+       adsService.createAd(ads,image, authentication);
 
     }
     @Operation(
@@ -52,25 +56,27 @@ public class AdsController {
             tags= "объявления"
     )
     @GetMapping("/{id}")
-    public AdsDto getAds(@PathVariable("id") int id){
+    public ExtendedAd getAds(@PathVariable("id") int id){
 
-        return new AdsDto();
+        return adsService.getAds(id);
     }
     @Operation(
             summary = "удаление объявлении",
             tags= "объявления"
     )
     @DeleteMapping("/{id}")
+    @PreAuthorize("@adsServiceImpl.hasRight(#id,authentication)")
     public void deleteByIdDto(@PathVariable("id") int id){
-
+     adsService.delete(id);
     }
     @Operation(
             summary = "обновление информации об объявлении",
             tags= "объявления"
     )
     @PatchMapping("/{id}")
-    public CreateAdsDto updateCreateAdsDto(@RequestBody CreateAdsDto ads) {
-        return new CreateAdsDto();
+    @PreAuthorize("@adsServiceImpl.hasRight(#id,authentication)")
+    public void updateCreateAdsDto(@PathVariable int id, @RequestBody CreateOrUpdateAd ads) {
+        adsService.updateAd(id,ads);
     }
     @Operation(
             summary = "Получение информации авторизованного пользователя",
@@ -79,9 +85,8 @@ public class AdsController {
 
     @GetMapping("/me")
 
-    public AdsDto getLoginUserAds(@RequestBody AdsDto ads){
-
-        return new AdsDto();
+    public Ads getLoginUserAds(Authentication authentication){
+    return adsService.getMyAds(authentication);
     }
     @Operation(
             summary= "Обновление картинки объявления (по id)",
@@ -89,11 +94,14 @@ public class AdsController {
     )
 
     @PatchMapping("/{id}/image")
-    public AdsDto updateAdPicture(@PathVariable("id") int id, @RequestParam("image") MultipartFile image){
-        return new AdsDto();
+    public void updateAdPicture(@PathVariable("id") int id, @RequestParam("image") MultipartFile image) throws IOException {
+       adsService.updateImage(id, image);
     }
 
-
+    @GetMapping("/{id}/image")
+    public byte[] getImage(@PathVariable int id) {
+        return adsService.getImage(id);
+    }
 
 }
 

@@ -6,11 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.skypro.homework.dto.CommentDto;
+import ru.skypro.homework.dto.Comment;
 import ru.skypro.homework.dto.CreateOrUpdateComment;
-import ru.skypro.homework.dto.ResponseWrapperComment;
-import ru.skypro.homework.service.CommentService;
+import ru.skypro.homework.dto.Comments;
+import ru.skypro.homework.service.impl.CommentServiceImpl;
 
 
 /**
@@ -26,9 +28,8 @@ import ru.skypro.homework.service.CommentService;
 
 public class CommentController {
 
-    CommentController commentService;
-    public CommentController(CommentService commentService) {
-    }
+    private  final CommentServiceImpl commentService;
+
 
 
     @GetMapping("/{id}/comments")
@@ -50,8 +51,8 @@ public class CommentController {
             description = "страница не найдена"
     )
 
-    public ResponseWrapperComment getComment(@PathVariable(value = "id") int id){
-        return new ResponseWrapperComment();
+    public Comments getComment(@PathVariable(value = "id") int id){
+        return commentService.getComments(id);
     }
 
     @PostMapping("/{id}/comments")
@@ -74,10 +75,10 @@ public class CommentController {
     )
 
 
-    public CommentDto addComment(@PathVariable("id") int commentId,
-                                 @RequestBody CreateOrUpdateComment comments){
+    public void addComment(@PathVariable("id") int id,
+                           @RequestBody CreateOrUpdateComment comments, Authentication authentication){
 
-        return new CommentDto();
+        commentService.create(id,comments, authentication);
     }
 
     @DeleteMapping("/{id}/comments/{commentId}")
@@ -102,10 +103,10 @@ public class CommentController {
             responseCode ="404",
             description = "страница не найдена"
     )
-
-    public CommentDto deleteCommend(@PathVariable Integer adId,
-                                    @PathVariable Integer commentId){
-        return new CommentDto();
+    @PreAuthorize("@commentServiceImpl.hasRight(#commentId,authentication)")
+    public void deleteCommend(@PathVariable Integer id,
+                                 @PathVariable Integer commentId){
+        commentService.delete(id, commentId);
     }
 
 
@@ -131,16 +132,11 @@ public class CommentController {
             responseCode ="404",
             description = "страница не найдена"
     )
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Integer adId,
-                                                    @PathVariable Integer commentId,
-                                                    @RequestBody CreateOrUpdateComment comment) {
-        try {
-            CommentDto commentDto = commentService.updateComment(adId, commentId, comment).getBody();
-            return ResponseEntity.ok(commentDto);
-        } catch (RuntimeException e) {
-            e.getStackTrace();
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+    @PreAuthorize("@commentServiceImpl.hasRight(#commentId,authentication)")
+    public void  updateComment(@PathVariable Integer id,
+                                                 @PathVariable Integer commentId,
+                                                 @RequestBody CreateOrUpdateComment comment) {
+       commentService.update(id,commentId, comment);
     }
 
 

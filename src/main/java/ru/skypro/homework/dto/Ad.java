@@ -5,13 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class AdsDto  {
-    private Integer author; // id автора объявления
+
+public class Ad {
+    private int author; // id автора объявления
     private String image; // ссылка на картинку объявления
-    private Integer pk; // id объявления
-    private Integer price; // цена объявления
+    private int pk; // id объявления
+    private int price; // цена объявления
     private String title; // заголовок объявления
 }
 
